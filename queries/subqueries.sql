@@ -5,8 +5,8 @@ Display products whose quantity on sale is less than the smallest average quanti
 SELECT product_name, units_in_stock
 FROM products
 WHERE products.units_in_stock < ALL(SELECT AVG(quantity)
-								FROM order_details
-								GROUP BY products.product_id)
+									FROM order_details
+									GROUP BY products.product_id)
 ORDER BY units_in_stock DESC
 
 /*
@@ -17,7 +17,7 @@ The resulting table should have customer_id and freight_sum columns, the lines o
 SELECT orders.customer_id, SUM(orders.freight) AS freight_sum
 FROM orders
 WHERE (orders.shipped_date BETWEEN '1996-07-15' AND '1996-07-31') AND (orders.freight >= ALL(SELECT AVG(orders.freight)  
-						    																 FROM orders))
+																							 FROM orders))
 GROUP BY orders.customer_id
 ORDER BY freight_sum DESC
 
@@ -38,5 +38,5 @@ LIMIT 3
 SELECT product_id, product_name, units_on_order
 FROM products
 WHERE products.product_id = ANY(SELECT order_details.product_id
-						  		FROM order_details
-						 	    WHERE quantity = 10)
+								FROM order_details
+								WHERE quantity = 10)
